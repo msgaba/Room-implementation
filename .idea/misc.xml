@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/ic_clear.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/ic_notes.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/ic_save.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/round_corner_background_2.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/top_round_corner_background.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/top_round_corner_background_2.xml" value="0.131" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_intro.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_note.xml" value="0.22313232421875" />
+        <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/item_notes.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/view_back.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/view_bottom_functions.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/view_clear.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/view_custom_dialog.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/view_delete.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/view_dialog.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/view_save.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/view_splash.xml" value="0.16" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

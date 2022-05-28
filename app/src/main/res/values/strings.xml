@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="notes">Notes</string>
+    <string name="name_dialog_title">Add name to your notes file.</string>
+    <string name="back_dialog_title">Are you sure to leave changes unsaved? They will be undone.</string>
+    <string name="clear_dialog_title">Do you want to clear your notes file?</string>
+    <string name="save_dialog_title">Do you want to save your notes file?</string>
+    <string name="delete_dialog_title">Do you want to delete your notes file?</string>
+    <string name="title">Title</string>
+    <string name="clear">Clear</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hint_body">Type your thoughts here...</string>
+
+    <!-- animation transitions -->
+    <string name="image_logo_transition">logoImageTransition</string>
+</resources>
