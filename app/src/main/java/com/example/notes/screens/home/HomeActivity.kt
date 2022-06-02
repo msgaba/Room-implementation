@@ -47,25 +47,7 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
         observeEvents()
     }
 
-    private fun observeEvents() {
-        noteViewModel.noteList.observe(this, Observer {
-            it?.let {
-                binding.apply {
-                    list.visibleOnCondition(it.isNotEmpty())
-                    emptyView.container.visibleOnCondition(it.isEmpty())
-                }
-                mAdapter.list(it as MutableList<Note>)
-            }
-        })
-        noteViewModel.addedItemId.observe(this, Observer {
-            it?.let {
-                mNote.id = it
-                NoteActivity.navigate(this, mNote)
-                mNote = Note()
-            }
-        })
-    }
-
+    /** initial recycler components setup **/
     private fun initVars() {
         mAdapter = NoteListAdapter(this)
         mLayoutManager = GridLayoutManager(this, 2)
@@ -76,7 +58,9 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
         mAdapter.listener(this)
     }
 
+    /** click actions of views **/
     private fun viewClicks() {
+        // click action of fab button
         binding.fab.setOnClickListener {
             CustomDialog.showDialog(
                 this@HomeActivity,
@@ -91,14 +75,39 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
         }
     }
 
+    /** function to observe live data variables in viewmodel**/
+    private fun observeEvents() {
+        // observing noteList
+        noteViewModel.noteList.observe(this, Observer {
+            it?.let {
+                binding.apply {
+                    list.visibleOnCondition(it.isNotEmpty())
+                    emptyView.container.visibleOnCondition(it.isEmpty())
+                }
+                mAdapter.list(it as MutableList<Note>)
+            }
+        })
+        // observing addedItemId
+        noteViewModel.addedItemId.observe(this, Observer {
+            it?.let {
+                mNote.id = it
+                NoteActivity.navigate(this, mNote)
+                mNote = Note()
+            }
+        })
+    }
+
+    /** callback for 1st button of dialog **/
     override fun onButton1Click(data: Any?) {
         val title = data as String
         mNote = Note(title = title)
         noteViewModel.addNote(mNote)
     }
 
+    /** callback for 2nd button of dialog **/
     override fun onButton2Click(data: Any?) {}
 
+    /** callback for note item clicked if list **/
     override fun onNoteClicked(note: Note) {
         NoteActivity.navigate(this, note)
     }

@@ -44,6 +44,7 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
         viewClicks()
     }
 
+    /** initial view setup **/
     private fun initViews() {
         binding.apply {
             title.text = note.title
@@ -51,13 +52,16 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
         }
     }
 
+    /** edit listener for note body **/
     private fun editAction() {
         binding.body.doOnTextChanged { text, _, _, _ ->
             updatedNote.body = text.toString()
         }
     }
 
+    /** view clicks**/
     private fun viewClicks() {
+        // click action for back button
         binding.back.containerBack.setOnClickListener {
             viewClicked = BACK_CLICKED
             CustomDialog.showDialog(
@@ -71,6 +75,8 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
                 this@NoteActivity
             )
         }
+
+        // click action for note title
         binding.title.setOnClickListener {
             viewClicked = TITLE_CLICKED
             CustomDialog.showDialog(
@@ -84,7 +90,10 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
                 this@NoteActivity
             )
         }
+
+        // click actions for bottom bar
         binding.bottomFunc.apply {
+            // click action for clear button
             clear.containerClear.setOnClickListener {
                 viewClicked = CLEAR_CLICKED
                 CustomDialog.showDialog(
@@ -98,6 +107,8 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
                     this@NoteActivity
                 )
             }
+
+            // click action for save button
             save.containerSave.setOnClickListener {
                 viewClicked = SAVE_CLICKED
                 CustomDialog.showDialog(
@@ -111,6 +122,8 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
                     this@NoteActivity
                 )
             }
+
+            // click action for delete button
             delete.containerDelete.setOnClickListener {
                 viewClicked = DELETE_CLICKED
                 CustomDialog.showDialog(
@@ -127,6 +140,7 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
         }
     }
 
+    /** callback for 1st button of dialog **/
     override fun onButton1Click(data: Any?) {
         when (viewClicked) {
             BACK_CLICKED -> {
@@ -158,6 +172,9 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
         }
     }
 
+    /** callback for 2nd button of dialog **/
+    override fun onButton2Click(data: Any?) {}
+
     override fun onBackPressed() {
         viewClicked = BACK_CLICKED
         CustomDialog.showDialog(
@@ -172,10 +189,7 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
         )
     }
 
-    override fun onButton2Click(data: Any?) {}
-
     companion object {
-
         fun navigate(mContext: Activity, note: Note) {
             val intent = Intent(mContext, NoteActivity::class.java)
             intent.putExtra(KEY_NOTE_OBJECT, Gson().toJson(note))
