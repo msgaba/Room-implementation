@@ -1,28 +1,35 @@
 package com.example.notes.database
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.notes.models.Note
 import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 
 /**
  * Created by Ankita
  */
 class NoteViewModel(private val repository: NoteRepository) : ViewModel() {
 
-    val noteList: LiveData<List<Note>> = repository.notesList as LiveData<List<Note>>
+    val noteList: LiveData<List<Note>> = repository.notesList.asLiveData()
+
+    private val _addedItemId: MutableLiveData<Int> = MutableLiveData<Int>()
+    val addedItemId: LiveData<Int> = _addedItemId
 
     fun addNote(note: Note) = viewModelScope.launch {
-        repository.addNote(note)
+        _addedItemId.value = repository.addNote(note).toInt()
+    }
+
+    fun updateNote(note: Note) = viewModelScope.launch {
+        repository.updateNote(note)
+    }
+
+    fun deleteNote(id: Int) = viewModelScope.launch {
+        repository.deleteNote(id)
     }
 }
 
-class NoteViewModelFactory(private val repository: NoteRepository): ViewModelProvider.Factory {
+class NoteViewModelFactory(private val repository: NoteRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(NoteViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(NoteViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return NoteViewModel(repository) as T
         }

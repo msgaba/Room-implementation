@@ -7,8 +7,8 @@ import kotlinx.coroutines.SupervisorJob
 /**
  * Created by Ankita
  */
-class NoteApplication: Application() {
-    private val applicationScope = CoroutineScope(SupervisorJob())
-     private val database by lazy { NoteRoomDatabase.getDatabase(this, applicationScope) }
+class NoteApplication : Application() {
+    val applicationScope = CoroutineScope(SupervisorJob())
+    val database by lazy { NoteRoomDatabase.getDatabase(this, applicationScope) }
     val repository by lazy { NoteRepository(database.noteDao()) }
 }

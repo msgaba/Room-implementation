@@ -2,6 +2,7 @@ package com.example.notes.screens.home
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -18,10 +19,7 @@ import com.example.notes.models.Note
 import com.example.notes.screens.dialog.CustomDialog
 import com.example.notes.screens.dialog.DialogActionListener
 import com.example.notes.screens.note.NoteActivity
-import com.example.notes.util.DELETE_REQUEST_CODE
-import com.example.notes.util.KEY_NOTE_OBJECT
-import com.example.notes.util.NOTE_REQUEST_CODE
-import com.example.notes.util.REFRESH_REQUEST_CODE
+import com.example.notes.util.*
 import com.google.gson.Gson
 
 class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickListener {
@@ -29,10 +27,10 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
 
     private lateinit var mAdapter: NoteListAdapter
     private lateinit var mLayoutManager: RecyclerView.LayoutManager
-    private var positionClicked = -1
+    private var mNote = Note()
     lateinit var dialogActionListener: DialogActionListener
-    private val noteViewModel by lazy {
-        NoteViewModelFactory((application as NoteApplication).repository).create(NoteViewModel::class.java)
+    private val noteViewModel: NoteViewModel by viewModels {
+        NoteViewModelFactory((application as NoteApplication).repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +44,25 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
         )
         initVars()
         viewClicks()
+        observeEvents()
+    }
+
+    private fun observeEvents() {
         noteViewModel.noteList.observe(this, Observer {
-            it?.let { mAdapter.list(it as MutableList<Note>) }
+            it?.let {
+                binding.apply {
+                    list.visibleOnCondition(it.isNotEmpty())
+                    emptyView.container.visibleOnCondition(it.isEmpty())
+                }
+                mAdapter.list(it as MutableList<Note>)
+            }
+        })
+        noteViewModel.addedItemId.observe(this, Observer {
+            it?.let {
+                mNote.id = it
+                NoteActivity.navigate(this, mNote)
+                mNote = Note()
+            }
         })
     }
 
@@ -58,7 +73,6 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
             adapter = mAdapter
             layoutManager = mLayoutManager
         }
-//        mAdapter.list(getNote())
         mAdapter.listener(this)
     }
 
@@ -79,16 +93,13 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
 
     override fun onButton1Click(data: Any?) {
         val title = data as String
-        val note = Note(title = title)
-        mAdapter.addNote(note)
-        positionClicked = mAdapter.size() - 1
-        NoteActivity.navigate(this, note)
+        mNote = Note(title = title)
+        noteViewModel.addNote(mNote)
     }
 
     override fun onButton2Click(data: Any?) {}
 
-    override fun onNoteClicked(note: Note, pos: Int) {
-        positionClicked = pos
+    override fun onNoteClicked(note: Note) {
         NoteActivity.navigate(this, note)
     }
 
@@ -99,7 +110,7 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
                 REFRESH_REQUEST_CODE -> {
                     data?.let {
                         if (data.hasExtra(KEY_NOTE_OBJECT))
-                            noteViewModel.addNote(
+                            noteViewModel.updateNote(
                                 Gson().fromJson(
                                     it.getStringExtra(KEY_NOTE_OBJECT),
                                     Note::class.java
@@ -108,7 +119,7 @@ class HomeActivity : AppCompatActivity(), DialogActionListener, NoteItemClickLis
                     }
                 }
                 DELETE_REQUEST_CODE -> {
-                    mAdapter.deleteNote(positionClicked)
+                    data?.let { noteViewModel.deleteNote(it.getIntExtra(KEY_NOTE_ID, -1)) }
                 }
             }
         }

@@ -29,6 +29,7 @@ class IntroActivity : AppCompatActivity() {
             val activityOptionsCompat: ActivityOptionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this, pair1)
             startActivity(intent, activityOptionsCompat.toBundle())
+            finish()
         }, 3000)
     }
 }

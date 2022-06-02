@@ -139,7 +139,7 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
             }
             CLEAR_CLICKED -> {
                 val intent = Intent()
-                intent.putExtra(KEY_NOTE_OBJECT, Gson().toJson(Note()))
+                intent.putExtra(KEY_NOTE_OBJECT, Gson().toJson(Note(id = note.id)))
                 setResult(REFRESH_REQUEST_CODE, intent)
                 finish()
             }
@@ -150,7 +150,9 @@ class NoteActivity : AppCompatActivity(), DialogActionListener {
                 finish()
             }
             DELETE_CLICKED -> {
-                setResult(DELETE_REQUEST_CODE)
+                val intent = Intent()
+                intent.putExtra(KEY_NOTE_ID, note.id)
+                setResult(DELETE_REQUEST_CODE, intent)
                 finish()
             }
         }

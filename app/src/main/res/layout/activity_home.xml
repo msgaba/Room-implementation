@@ -39,6 +39,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/icon">
 
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/view_empty"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_size_150" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
@@ -61,12 +70,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_size_16"
         android:backgroundTint="@color/blue"
-        app:tint="@color/white"
         android:elevation="@dimen/dp_size_8"
         android:src="@drawable/ic_add"
         app:borderWidth="@dimen/dp_size_0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

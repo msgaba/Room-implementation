@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/ic_clear.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/ic_empty.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/ic_notes.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/ic_save.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.131" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/layout/view_custom_dialog.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/view_delete.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/view_dialog.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/view_empty.xml" value="0.16" />
         <entry key="app/src/main/res/layout/view_save.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/view_splash.xml" value="0.16" />
       </map>

@@ -16,4 +16,5 @@
 
     <!-- animation transitions -->
     <string name="image_logo_transition">logoImageTransition</string>
+    <string name="empty_msg">No item present.\nAdd now.</string>
 </resources>

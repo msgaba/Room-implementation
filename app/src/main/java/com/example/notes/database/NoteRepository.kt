@@ -12,7 +12,19 @@ class NoteRepository(private val dao: NoteDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun addNote(note: Note) {
-        dao.addNote(note)
+    suspend fun addNote(note: Note): Long {
+        return dao.addNote(note)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateNote(note: Note) {
+        dao.updateNote(note.title, note.body, note.id)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteNote(id: Int) {
+        dao.deleteNote(id)
     }
 }

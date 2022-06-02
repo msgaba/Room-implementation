@@ -1,6 +1,9 @@
 package com.example.notes.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.notes.models.Note
 import kotlinx.coroutines.flow.Flow
 
@@ -13,11 +16,11 @@ interface NoteDao {
     fun getNoteList(): Flow<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addNote(note: Note)
+    suspend fun addNote(note: Note): Long
 
     @Query("DELETE FROM note_table WHERE id = :id")
     suspend fun deleteNote(id: Int)
 
-    @Update()
-    fun updateNote(id: Int)
+    @Query("UPDATE note_table SET title=:title, body=:body WHERE id = :id")
+    fun updateNote(title: String, body: String, id: Int)
 }
