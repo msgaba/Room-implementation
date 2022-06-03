@@ -29,7 +29,6 @@ abstract class NoteRoomDatabase : RoomDatabase() {
                     NoteRoomDatabase::class.java,
                     "note_database"
                 )
-                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .addCallback(NoteDatabaseCallback(scope))
                     .build()
